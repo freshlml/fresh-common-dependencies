@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.8.RELEASE</version>
+        <relativePath/>
+    </parent>
+    <groupId>com.fresh</groupId>
+    <artifactId>fresh-common-dependencies</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <name>fresh-common-dependencies</name>
+    <description>fresh-common-dependencies</description>
+    <url>https://www.github.com/freshlml/fresh-common-dependencies</url>
+    <licenses>
+        <license>
+            <name>freshlml</name>
+            <url>https://www.github.com/freshlml/fresh-common-dependencies</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>freshlml</name>
+            <email>1326191992@qq.com</email>
+            <organization>freshlml</organization>
+            <organizationUrl>https://www.github.com/freshlml/</organizationUrl>
+        </developer>
+    </developers>
+    <scm>
+        <url>https://www.github.com/freshlml/fresh-common-dependencies</url>
+    </scm>
+
+    <!-- 定义distribution地址,用于deploy -->
+    <!--<distributionManagement></distributionManagement>-->
+
+    <!-- 定义远端仓库地址 -->
+    <!--<repositories></repositories>-->
+    <!--<pluginRepositories></pluginRepositories>-->
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <!-- 与parent保持一致 -->
+        <spring-boot.version>2.1.8.RELEASE</spring-boot.version>
+        <!-- https://spring.io/projects/spring-cloud#overview  -->
+        <!-- Greenwich版本release notes
+            https://github.com/spring-projects/spring-cloud/wiki/Spring-Cloud-Greenwich-Release-Notes
+        -->
+        <!-- D:\calm\Java_Member\19_md_result\Spring Cloud Greenwich 中文文档.html -->
+        <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
+        <!-- https://github.com/alibaba/spring-cloud-alibaba -->
+        <spring-cloud-alibaba.version>2.1.0.RELEASE</spring-cloud-alibaba.version>
+
+        <mybatis-plus.version>3.2.0</mybatis-plus.version>
+        <mybatis-spring.version>2.2.2</mybatis-spring.version>
+        <druid.version>1.1.20</druid.version>
+        <rocketmq-version>4.5.0</rocketmq-version>
+    </properties>
+
+    <!-- 定义profiles
+       1、父profile和子profile同时存在，父profile在子pom中不可见，但父profile可以在子pom中激活
+            1)、父profile中配置activeByDefault; 2)、子pom中执行命令，mvn clean package -Pdev
+       2、profile的搜索规则: 从子开始搜索，则子profile定义了相同id，将优先查找到子profile
+      -->
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <package.environment>dev</package.environment>
+            </properties>
+            <!--<activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>-->
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <package.environment>test</package.environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <package.environment>prod</package.environment>
+            </properties>
+        </profile>
+    </profiles>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- spring cloud -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- spring cloud alibaba -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-client</artifactId>
+                <version>${rocketmq-version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>dev/*</exclude>
+                    <exclude>test/*</exclude>
+                    <exclude>prod/*</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources/${package.environment}</directory>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.yml</include>
+                    <include>**/*.xsd</include>
+                    <include>**/*.dtd</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <configuration>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                    </configuration>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <!--
+            maven会根据"实际情况"默认写入plugin配置，绑定"生命周期",通过合并后的pom可看
+            默认写入plugin时仍然会合并pluginManagement配置
+            默认写入的plugin配置和自定义的plugin配置，"穿插覆盖"
+            -->
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <!-- 没有指定phase,?:package时仍然执行了 -->
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>
