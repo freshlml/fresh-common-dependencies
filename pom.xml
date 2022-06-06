@@ -12,6 +12,8 @@
     </parent>
     <groupId>com.fresh</groupId>
     <artifactId>fresh-common-dependencies</artifactId>
+    <!-- 当前版本1.0.0，当发生修改后一般也会维持1.0.0不变
+         只有当修改会造成下层比较大的依赖问题时，此版本号需要变更 -->
     <version>1.0.0</version>
     <packaging>pom</packaging>
     <name>fresh-common-dependencies</name>
