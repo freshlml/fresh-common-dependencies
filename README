@@ -1,2 +1,6 @@
-fresh桶的公共依赖
+fresh桶的parent pom
 com.fresh:fresh-common-dependencies
+
+本地: 需要打包到本地仓库
+线上: 需要打包到远端仓库
+
