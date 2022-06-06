@@ -64,6 +64,7 @@
         <mybatis-spring.version>2.2.2</mybatis-spring.version>
         <druid.version>1.1.20</druid.version>
         <rocketmq-version>4.5.0</rocketmq-version>
+        <java-jwt.version>3.8.0</java-jwt.version>
     </properties>
 
     <!-- 定义profiles
@@ -133,6 +134,13 @@
                 <groupId>org.apache.rocketmq</groupId>
                 <artifactId>rocketmq-client</artifactId>
                 <version>${rocketmq-version}</version>
+            </dependency>
+
+            <!-- java-jwt -->
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>${java-jwt.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
