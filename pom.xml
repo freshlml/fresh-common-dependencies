@@ -52,7 +52,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
-        <!-- 与parent保持一致 -->
+        <!-- 与parent中version保持一致 -->
         <spring-boot.version>2.1.8.RELEASE</spring-boot.version>
         <!-- https://spring.io/projects/spring-cloud#overview  -->
         <!-- Greenwich版本release notes
@@ -70,11 +70,6 @@
         <java-jwt.version>3.8.0</java-jwt.version>
     </properties>
 
-    <!-- 定义profiles
-       1、父profile和子profile同时存在，父profile在子pom中不可见，但父profile可以在子pom中激活
-            1)、父profile中配置activeByDefault; 2)、子pom中执行命令，mvn clean package -Pdev
-       2、profile的搜索规则: 从子开始搜索，则子profile定义了相同id，将优先查找到子profile
-      -->
     <profiles>
         <profile>
             <id>dev</id>
@@ -196,12 +191,6 @@
         </pluginManagement>
 
         <plugins>
-            <!--
-            maven会根据"实际情况"默认写入plugin配置，绑定"生命周期",通过合并后的pom可看
-            默认写入plugin时仍然会合并pluginManagement配置
-            默认写入的plugin配置和自定义的plugin配置，"穿插覆盖"
-            -->
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
