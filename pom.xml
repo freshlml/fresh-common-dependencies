@@ -194,13 +194,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>${maven-source-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
-                        <!-- 没有指定phase,?:package时仍然执行了 -->
                         <goals>
-                            <goal>jar</goal>
+                            <goal>jar</goal> <!-- bind default to lifecycle phase: package -->
                         </goals>
                     </execution>
                 </executions>
