@@ -12,9 +12,13 @@
     </parent>
     <groupId>com.fresh</groupId>
     <artifactId>fresh-common-dependencies</artifactId>
-    <!-- 通过变更版本号并存多个版本，与git分支相对应
-     如，git分支 1.0.x 表示此pom的 1.0.x 版本
-     -->
+    <!--
+    版本号格式: 主版本号.次版本号.序列号
+      1. 起始版本号: 1.0.0, 位于名为 1.0(或者 1.0.x)的 git 分支
+         修改一般是向前兼容的，可以选择保持版本号不变或修改序列号或次版本号
+      2. 当有重大升级或其他情况（如升级 spring 版本号）时，修改版本号为 2.0.0，同时创建 git 分支: 2.0(或者 2.0.x)
+         两个分支独立维护，互不干扰
+    -->
     <version>1.0.0</version>
     <packaging>pom</packaging>
     <name>fresh-common-dependencies</name>
