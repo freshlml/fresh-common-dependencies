@@ -74,6 +74,7 @@
         <java-jwt.version>3.8.0</java-jwt.version>
     </properties>
 
+    <!-- 未激活任何 profile -->
     <profiles>
         <profile>
             <id>dev</id>
