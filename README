@@ -1,6 +1,4 @@
-fresh桶的parent pom
-com.fresh:fresh-common-dependencies
+groupId: com.fresh
 
-本地: 需要打包到本地仓库
-线上: 需要打包到远端仓库
+
 
